@@ -15,15 +15,17 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
   persistedReducer,
   composeEnhancers(
-    thunk.withExtraArgument({
-      axios,
-      api,
-    })
+    applyMiddleware(
+      thunk.withExtraArgument({
+        axios,
+        api,
+      })
+    )
   )
 );
 
