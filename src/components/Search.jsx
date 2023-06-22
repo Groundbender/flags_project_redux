@@ -35,28 +35,29 @@ const Input = styled.input.attrs({
 `;
 
 export const Search = () => {
-  // const [search, setSearch] = useState("");
+  // const globalSearch = useSelector(selectSearch);
+
+  const [searchValue, setSearchValue] = useState("");
 
   const dispatch = useDispatch();
-  const search = useSelector(selectSearch);
 
-  // const debouncedSearch = debounce((value) => {
-  //   dispatch(setSearch(value));
-  // }, 1000);
-
-  // const handleSearch = (e) => {
-  //   setSearch(e.target.value);
-  //   debouncedSearch(e.target.value);
-  // };
+  const debouncedSearch = debounce((value) => {
+    dispatch(setSearch(value));
+  }, 1000);
 
   const handleSearch = (e) => {
-    dispatch(setSearch(e.target.value));
+    setSearchValue(e.target.value);
+    debouncedSearch(searchValue);
   };
+
+  // const handleSearch = (e) => {
+  //   dispatch(setSearch(e.target.value));
+  // };
 
   return (
     <InputContainer>
       <IoSearch />
-      <Input onChange={handleSearch} value={search} />
+      <Input onChange={handleSearch} value={searchValue} />
     </InputContainer>
   );
 };
