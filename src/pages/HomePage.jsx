@@ -50,7 +50,20 @@ export const HomePage = () => {
           <img style={{ textAlign: "center" }} src={loadImg} alt="" />
         </div>
       )}
-      {status === "received" && countries.length !== 0 ? (
+
+      {countries.length === 0 && status !== "loading" ? (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "100px auto 100px auto",
+          }}
+        >
+          <h2>Countries are not found</h2>
+        </div>
+      ) : null}
+      {status === "received" && (
         <List>
           {countries.map((c) => {
             const countryInfo = {
@@ -81,17 +94,6 @@ export const HomePage = () => {
             );
           })}
         </List>
-      ) : (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            margin: "100px auto 100px auto",
-          }}
-        >
-          <h2>Countries are not found</h2>
-        </div>
       )}
     </>
   );
