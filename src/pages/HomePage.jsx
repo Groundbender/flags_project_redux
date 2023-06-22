@@ -11,6 +11,7 @@ import {
 import { loadCountries } from "../store/countries/countries-actions";
 import loadImg from "../assests/img/loader-black.svg";
 import { selectControls } from "../store/controls/controls-selectors";
+import throttle from "lodash.throttle";
 
 export const HomePage = () => {
   const navigate = useNavigate();
