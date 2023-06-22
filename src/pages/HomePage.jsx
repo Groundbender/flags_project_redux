@@ -4,16 +4,13 @@ import { useEffect } from "react";
 import { List } from "../components/List";
 import { Card } from "../components/Card";
 import { Controls } from "../components/Controls";
-import throttle from "lodash.throttle";
 import {
-  selectAllCountries,
   selectCountriesInfo,
   selectVisibleCountries,
 } from "../store/countries/coutries-selectors";
 import { loadCountries } from "../store/countries/countries-actions";
 import loadImg from "../assests/img/loader-black.svg";
 import { selectControls } from "../store/controls/controls-selectors";
-import debounce from "lodash.debounce";
 
 export const HomePage = () => {
   const navigate = useNavigate();
@@ -52,7 +49,7 @@ export const HomePage = () => {
           <img style={{ textAlign: "center" }} src={loadImg} alt="" />
         </div>
       )}
-      {status === "received" && (
+      {status === "received" && countries.length !== 0 ? (
         <List>
           {countries.map((c) => {
             const countryInfo = {
@@ -83,9 +80,18 @@ export const HomePage = () => {
             );
           })}
         </List>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "100px auto 100px auto",
+          }}
+        >
+          <h2>Countries are not found</h2>
+        </div>
       )}
-
-      {}
     </>
   );
 };

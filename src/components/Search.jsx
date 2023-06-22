@@ -47,7 +47,7 @@ export const Search = () => {
 
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
-    debouncedSearch(searchValue);
+    debouncedSearch(e.target.value);
   };
 
   // const handleSearch = (e) => {
