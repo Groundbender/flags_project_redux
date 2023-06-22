@@ -4,19 +4,31 @@ import { useEffect } from "react";
 import { List } from "../components/List";
 import { Card } from "../components/Card";
 import { Controls } from "../components/Controls";
+import throttle from "lodash.throttle";
 import {
   selectAllCountries,
   selectCountriesInfo,
+  selectVisibleCountries,
 } from "../store/countries/coutries-selectors";
 import { loadCountries } from "../store/countries/countries-actions";
 import loadImg from "../assests/img/loader-black.svg";
+import { selectControls } from "../store/controls/controls-selectors";
+import debounce from "lodash.debounce";
 
 export const HomePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const countries = useSelector(selectAllCountries);
   const { status, error, countriesNumber } = useSelector(selectCountriesInfo);
+
+  const { search, region } = useSelector(selectControls);
+
+  // const visibleCountries = useSelector((state) =>
+  //   selectVisibleCountries(state, search)
+  // );
+  const countries = useSelector((state) =>
+    selectVisibleCountries(state, { search, region })
+  );
 
   useEffect(() => {
     if (!countriesNumber) {

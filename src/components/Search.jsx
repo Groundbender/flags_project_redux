@@ -1,6 +1,10 @@
-import styled from 'styled-components';
-
-import { IoSearch } from 'react-icons/io5';
+import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
+import { IoSearch } from "react-icons/io5";
+import { selectSearch } from "../store/controls/controls-selectors";
+import { setSearch } from "../store/controls/controls-actions";
+import debounce from "lodash.debounce";
+import { useState } from "react";
 
 const InputContainer = styled.label`
   background-color: var(--colors-ui-base);
@@ -20,8 +24,8 @@ const InputContainer = styled.label`
 `;
 
 const Input = styled.input.attrs({
-  type: 'search',
-  placeholder: 'Search for a country...',
+  type: "search",
+  placeholder: "Search for a country...",
 })`
   margin-left: 2rem;
   border: none;
@@ -30,11 +34,29 @@ const Input = styled.input.attrs({
   background-color: var(--colors-ui-base);
 `;
 
-export const Search = ({ search, setSearch }) => {
+export const Search = () => {
+  // const [search, setSearch] = useState("");
+
+  const dispatch = useDispatch();
+  const search = useSelector(selectSearch);
+
+  // const debouncedSearch = debounce((value) => {
+  //   dispatch(setSearch(value));
+  // }, 1000);
+
+  // const handleSearch = (e) => {
+  //   setSearch(e.target.value);
+  //   debouncedSearch(e.target.value);
+  // };
+
+  const handleSearch = (e) => {
+    dispatch(setSearch(e.target.value));
+  };
+
   return (
     <InputContainer>
       <IoSearch />
-      <Input onChange={(e) => setSearch(e.target.value)} value={search}/>
+      <Input onChange={handleSearch} value={search} />
     </InputContainer>
   );
 };
