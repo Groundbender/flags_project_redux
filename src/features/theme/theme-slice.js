@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { loadFromLocalStorage } from "../../helpers/localStorage";
 
 const themeSlice = createSlice({
   name: "@@theme",
-  initialState: "light",
+  initialState: loadFromLocalStorage() || "light",
   reducers: {
     setTheme: (_, action) => action.payload,
   },

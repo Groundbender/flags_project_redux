@@ -6,6 +6,7 @@ import { themeReducer } from "./features/theme/theme-slice";
 import { controlsReducer } from "./features/controls/controls-slice";
 import { countryReducer } from "./features/countries/countries-slice";
 import { detailsReducer } from "./features/details/details-slice";
+import { saveToLocalStorage } from "./helpers/localStorage";
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +24,9 @@ export const store = configureStore({
           api,
         },
       },
+
       serializableCheck: false,
     }),
 });
+
+store.subscribe(() => saveToLocalStorage(store.getState().theme));
