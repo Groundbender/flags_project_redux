@@ -13,7 +13,6 @@ const CountryList = () => {
 
   return (
     <>
-      {" "}
       {error && <h2>Couldn't get countries</h2>}
       {status === "loading" && (
         <div
